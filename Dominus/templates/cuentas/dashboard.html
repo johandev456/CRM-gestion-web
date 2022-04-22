@@ -1,0 +1,61 @@
+{% extends 'cuentas/main.html' %}
+
+{% block content %}
+
+{% include 'cuentas/estado.html' %}
+    <br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>CLIENTES:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'crear_cliente' %}">Añadir cliente</a>
+			<table class="table table-sm">
+				<tr>
+                    <th></th>
+					<th>Cliente</th>
+					<th>Telefono</th>
+				</tr>
+                {% for cliente in clientes %}
+                    <tr>
+                <td><a class="btn btn-sm btn-info" href="{% url 'cliente' cliente.idc %}">Vista</a></td>
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.telefono }}</td>
+                </tr>
+                {% endfor %}
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>ULTIMAS 5 ORDENES</h5>
+		<hr>
+		<div class="card card-body">
+
+			<table class="table table-sm">
+				<tr>
+					<th>Producto</th>
+					<th>Fecha</th>
+					<th>Estado</th>
+					<th>Modificar</th>
+					<th>Eliminar</th>
+				</tr>
+                {% for orden in ordenes %}
+                    <tr>
+
+                <td>{{ orden.producto }}</td>
+                <td>{{ orden.fecha }}</td>
+                <td>{{ orden.estado }}</td>
+
+                <td><a class="btn btn-sm btn-info" href="{% url 'mod_orden' orden.id %}">Modificar</a></td>
+                <td><a class="btn btn-sm btn-danger" href="{% url 'borrar_orden' orden.id %}">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

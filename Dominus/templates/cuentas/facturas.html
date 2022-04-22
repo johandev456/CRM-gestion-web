@@ -1,0 +1,41 @@
+{% extends 'cuentas/main.html' %}
+
+{% block content %}
+
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<h5>Facturas</h5>
+				</div>
+				<div class="card card-body">
+					<table class="table">
+							<tr><th>ID</th>
+							<th>Link</th>
+
+
+						</tr>
+
+
+                        {% for i in facts %}
+                            <tr>
+
+                                <td>{{ i }}</td>
+                                <td><a href="{% url 'factura' i %}">Factura</a></td>
+
+                                {% for a in  notas%}
+                                    {% if i == a %}
+                                 <td><a href="{% url 'notacredito' a %}">Devolucion</a></td>
+                                    {% endif %}
+                                    {% endfor %}
+                            </tr>
+                        {% endfor %}
+
+					</table>
+				</div>
+			</div>
+
+		</div>
+
+{% endblock %}
+

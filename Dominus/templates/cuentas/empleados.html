@@ -1,0 +1,60 @@
+{% extends 'cuentas/main.html' %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="GET">
+
+
+            {{ efiltro.form }}
+		    <input class="btn btn-primary" value="Buscar" type="submit">
+
+		  </form>
+		</div>
+	</div>
+
+</div>
+<br>
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<h5>Empleados</h5>
+				</div>
+				<div class="card card-body">
+                 <a class="btn btn-primary  btn-sm btn-block" href="{% url 'crear_empl' %}">Añadir empleados</a>
+					<table class="table">
+						<tr><th>Numero</th>
+							<th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Dept</th>
+                            <th>Cargo</th>
+                            <th>Correo</th>
+							<th>Salario</th>
+                       
+						</tr>
+
+                        {% for i in empleados %}
+                            <tr>
+                                <td>{{ i.numemp }}</td>
+                                <td>{{ i.nombre }}</td>
+                                <td>{{ i.apellido }}</td>
+                                <td>{{ i.deptno }}</td>
+                                <td>{{ i.cargo }}</td>
+                                <td>{{ i.correo }}</td>
+                                <td>{{ i.salario }}</td>
+                                <td><a class="btn btn-sm btn-info" href="{% url 'mod_empl' i.numemp %}">Modificar</a></td>
+                                <td><a class="btn btn-sm btn-danger" href="{% url 'borrar_empl' i.numemp %}">Eliminar</a></td>
+ 
+                            </tr>
+                        {% endfor %}
+
+					</table>
+				</div>
+			</div>
+
+		</div>
+
+{% endblock %}

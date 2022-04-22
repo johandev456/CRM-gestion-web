@@ -1,0 +1,108 @@
+{% extends 'cuentas/main.html' %}
+{% load static %}
+
+{% block content %}
+
+ <link rel="stylesheet" type="text/css" href="{% static 'css/factura.css' %}">
+   <script src="{% static 'js/factura.js' %}"></script>
+<div id="invoice">
+
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <form action="{% url 'PDFD' idf %}"><button id="printInvoice" class="btn btn-info"><i class="fa fa-print" ></i> Imprimir</button></form>
+            <form action="{% url 'PDF' idf %}"><button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> PDF</button></form>
+        </div>
+        <hr>
+    </div>
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <div class="row">
+                    <div class="col">
+
+                            <img src="{% static 'imagen/logo3.png' %}"  data-holder-rendered="true" />
+
+                    </div>
+                    <div class="col company-details">
+                        <h2 class="name">
+
+                           LACOSTE INC.
+
+                        </h2>
+                        <div>Troyes, France</div>
+                        <div>+44 1962 312803</div>
+                        <div>lacosteinfo@lacoste.com</div>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="row contacts">
+                    <div class="col invoice-to">
+                        <div class="text-gray-light">FACTURA PARA:</div>
+                        <h2 class="to">{{ cliente.nombre }}</h2>
+                        <div class="address">{{ cliente.direccion }}</div>
+                        <div class="email"><a href="mailto:john@example.com">{{ cliente.correo}}</a></div>
+                    </div>
+                    <div class="col invoice-details">
+                        <h1 class="invoice-id">FACTURA {{ idf }}</h1>
+                        <div class="date">Fecha: {{ fecha }}</div>
+
+                    </div>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th class="text-left">DESCRIPCION</th>
+                            <th class="text-right">PROVEEDOR</th>
+                            <th class="text-right">PRECIO</th>
+                            <th class="text-right">CANTIDAD</th>
+                            <th class="text-right">IMPORTE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in dics %}
+                        <tr>
+                            <td class="no">{{ i.idpp }}</td>
+                            <td class="text-left">{{ i.nombre }}</td>
+                            <td class="text-left">{{ i.idp }}</td>
+                            <td class="unit">${{ i.precio }}</td>
+                            <td class="qty">{{ i.cant }}</td>
+                            <td class="total">${{ i.total }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">SUBTOTAL</td>
+                            <td>${{ total|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">ITBIS</td>
+                            <td>${{ totali|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">TOTAL</td>
+                            <td>${{ totalit|floatformat:2 }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="thanks">Gracias por su compra!</div>
+                <div class="notices">
+                    <div>RECORDATORIO:</div>
+                    <div class="notice">El periodo de devolución maximo es de 30 dias.</div>
+                </div>
+            </main>
+            <footer>
+                Lacoste inc 1933-2022
+            </footer>
+        </div>
+        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+        <div></div>
+    </div>
+</div>
+</div>
+{% endblock %}

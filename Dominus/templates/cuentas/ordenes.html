@@ -1,0 +1,52 @@
+{% extends 'cuentas/main.html' %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="GET">
+
+
+            {{ miFiltro.form }}
+		    <input class="btn btn-primary" value="Buscar" type="submit">
+
+		  </form>
+		</div>
+	</div>
+
+</div>
+<br>
+
+		<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Producto</th>
+					<th>Categoria</th>
+                    <th>Nota</th>
+					<th>fecha</th>
+					<th>Estado</th>
+					<th>Modificar</th>
+					<th>Eliminar</th>
+				</tr>
+                {% for orden in ordenes %}
+                    <tr>
+                    <td>{{ orden.producto }}</td>
+                    <td>{{ orden.producto.categoria }}</td>
+                        <td>{{ orden.nota }}</td>
+                    <td>{{ orden.fecha }}</td>
+                    <td>{{ orden.estado }}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'mod_orden' orden.id %}">Modificar</a></td>
+                <td><a class="btn btn-sm btn-danger" href="{% url 'borrar_orden' orden.id %}">Eliminar</a></td>
+                    </tr>
+                {% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+

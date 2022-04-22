@@ -1,0 +1,56 @@
+<br>
+{% load static %}
+ <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+<div class="row">
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white bg-info  mb-3" id="total-orders">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Ordenes Totales</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{ totalordenes }}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white bg-success mb-3" ">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Ordenes Enviadas</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{ enviadas }}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+    <div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white bg-danger  mb-3">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Ordenes Regresadas</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{ devueltas }}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white bg-warning mb-3" >
+			  	<div class="card-header">
+			  		<h5 class="card-title">Ordenes Pendientes</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{ pendientes }}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>

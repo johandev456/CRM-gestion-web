@@ -1,0 +1,98 @@
+
+<head>
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+                        <h2 >
+
+                           LACOSTE INC.
+
+                        </h2>
+                        <td>Troyes, France</td>
+                        <td>+44 1962 312803</td>
+                        <td>lacosteinfo@lacoste.com</td>
+
+    </div>
+            <main>
+                <div >
+                    <div >
+                        <td>NOTA DE CREDITO PARA:</td>
+                        <h2 >{{ cliente.nombre }}</h2>
+                        <td >{{ cliente.direccion }}</td>
+                        <td ><a>{{ cliente.correo}}</a></td>
+                    </div>
+
+                        <h1 >NOTA DE CREDITO {{ idf }}</h1>
+                        <td >Fecha: {{ fecha }}</td>
+
+
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th >DESCRIPCION</th>
+                            <th >PROVEEDOR</th>
+                            <th >PRECIO</th>
+                            <th >CANTIDAD</th>
+                            <th >IMPORTE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in dics %}
+                        <tr>
+                            <td >{{ i.idpp }}</td>
+                            <td>{{ i.nombre }}</td>
+                            <td >{{ i.idp }}</td>
+                            <td >${{ i.precio }}</td>
+                            <td >{{ i.cant }}</td>
+                            <td >${{ i.total }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">SUBTOTAL</td>
+                            <td>${{ total|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">ITBIS</td>
+                            <td>${{ totali|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">TOTAL</td>
+                            <td>${{ totalit|floatformat:2 }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+    <hr>
+
+  <div id="footer_content">(c) - page <pdf:pagenumber>
+    of <pdf:pagecount> </div>
+
+
+</body>
+</html>

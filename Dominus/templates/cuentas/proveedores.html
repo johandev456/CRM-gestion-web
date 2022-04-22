@@ -1,0 +1,57 @@
+{% extends 'cuentas/main.html' %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="GET">
+
+
+            {{ ppfiltro.form }}
+		    <input class="btn btn-primary" value="Buscar" type="submit">
+
+		  </form>
+		</div>
+	</div>
+
+</div>
+<br>
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<h5>Proveedores</h5>
+				</div>
+				<div class="card card-body">
+                 <a class="btn btn-primary  btn-sm btn-block" href="{% url 'crear_prov' %}">Añadir proveedor</a>
+					<table class="table">
+						<tr><th>ID</th>
+							<th>Nombre</th>
+                            <th>Correo</th>
+							<th>Sector</th>
+							<th>Contacto</th>
+                            <th>Telefono</th>
+
+						</tr>
+
+                        {% for i in proveedores %}
+                            <tr>
+                                <td>{{ i.idp }}</td>
+                                <td>{{ i.nombre }}</td>
+                                <td>{{ i.correo }}</td>
+                                <td>{{ i.sector }}</td>
+                                <td>{{ i.nombrecontac }}</td>
+                                <td>{{ i.telefono }}</td>
+                                <td><a class="btn btn-sm btn-info" href="{% url 'mod_prov' i.idp %}">Modificar</a></td>
+                                <td><a class="btn btn-sm btn-danger" href="{% url 'borrar_prov' i.idp %}">Eliminar</a></td>
+                            </tr>
+                        {% endfor %}
+
+					</table>
+				</div>
+			</div>
+
+		</div>
+
+{% endblock %}

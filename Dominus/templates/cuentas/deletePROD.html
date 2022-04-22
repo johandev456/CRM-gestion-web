@@ -1,0 +1,23 @@
+{% extends 'cuentas/main.html' %}
+{% load static  %}
+
+{% block content %}
+
+    <br>
+    <div class="row">
+    <div class="col-md-6">
+         <div class="card card-body">
+
+
+    <p>Estas seguro de que quieres eliminar "{{ item }}"</p>
+<form action="{% url 'borrar_prod' item.id %}" method="POST">
+
+    {% csrf_token %}
+    <a class="btn btn-warning" href="{% url 'productos' %}">Cancelar</a>
+
+    <input class="btn btn-danger" type="submit" value="Confirmar">
+</form>
+         </div>
+    </div></div>
+
+{% endblock %}
