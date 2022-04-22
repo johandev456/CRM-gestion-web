@@ -2,15 +2,18 @@
 <head>
 <style>
     @page {
-        size: a4 portrait;
+        size: a5 landscape;
         @frame header_frame {           /* Static Frame */
+
             -pdf-frame-content: header_content;
             left: 50pt; width: 512pt; top: 50pt; height: 40pt;
         }
         @frame content_frame {          /* Content Frame */
+
             left: 50pt; width: 512pt; top: 90pt; height: 632pt;
         }
         @frame footer_frame {           /* Another static Frame */
+
             -pdf-frame-content: footer_content;
             left: 50pt; width: 512pt; top: 772pt; height: 20pt;
         }
@@ -21,23 +24,24 @@
 
 <body>
     <!-- Content for Static Frame 'header_frame' -->
-    <div id="header_content">
+    <div >
                         <h2 >
 
                            LACOSTE INC.
 
                         </h2>
-                        <td>Troyes, France</td><br>
-                        <td>+44 1962 312803</td><br>
-                        <td>lacosteinfo@lacoste.com</td>
+
 
     </div>
             <main>
-                <div >
+                <div id="content">
                     <div >
+                        <td>Troyes, France</td><br>
+                        <td>+44 1962 312803</td><br>
+                        <td>lacosteinfo@lacoste.com</td><br><br>
                         <td>FACTURA PARA:</td>
                         <h2 >{{ cliente.nombre }}</h2>
-                        <td >{{ cliente.direccion }}</td>
+                        <td >{{ cliente.direccion }}</td><br>
                         <td ><a>{{ cliente.correo}}</a></td>
                     </div>
 

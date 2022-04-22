@@ -2,7 +2,7 @@
 <head>
 <style>
     @page {
-        size: a4 portrait;
+        size: a5 landscape;
         @frame header_frame {           /* Static Frame */
             -pdf-frame-content: header_content;
             left: 50pt; width: 512pt; top: 50pt; height: 40pt;
@@ -27,17 +27,18 @@
                            LACOSTE INC.
 
                         </h2>
-                        <td>Troyes, France</td>
-                        <td>+44 1962 312803</td>
-                        <td>lacosteinfo@lacoste.com</td>
+
 
     </div>
             <main>
-                <div >
+                <div id="content">
                     <div >
-                        <td>NOTA DE CREDITO PARA:</td>
+                        <td>Troyes, France</td><br>
+                        <td>+44 1962 312803</td><br>
+                        <td>lacosteinfo@lacoste.com</td><br><br>
+                        <td>NOTA DE CREDITO DE:</td>
                         <h2 >{{ cliente.nombre }}</h2>
-                        <td >{{ cliente.direccion }}</td>
+                        <td >{{ cliente.direccion }}</td><br>
                         <td ><a>{{ cliente.correo}}</a></td>
                     </div>
 
