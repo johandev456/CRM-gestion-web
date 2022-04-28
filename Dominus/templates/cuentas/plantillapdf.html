@@ -36,6 +36,7 @@
             <main>
                 <div id="content">
                     <div >
+
                         <td>Troyes, France</td>
                         <td>+44 1962 312803</td>
                         <td>lacosteinfo@lacoste.com</td>
@@ -43,6 +44,7 @@
                         <h2 >{{ cliente.nombre }}</h2>
                         <td >{{ cliente.direccion }}</td>
                         <td ><a>{{ cliente.correo}}</a></td>
+
                     </div>
 
                         <h1 >FACTURA {{ idf }}</h1>
@@ -64,13 +66,16 @@
                     <tbody>
                         {% for i in dics %}
                         <tr>
+                        <right>
                             <td >{{ i.idpp }}</td>
                             <td>{{ i.nombre }}</td>
                             <td >{{ i.idp }}</td>
                             <td >${{ i.precio }}</td>
                             <td >{{ i.cant }}</td>
                             <td >${{ i.total }}</td>
+                        </right>
                         </tr>
+
                         {% endfor %}
                     </tbody>
                     <tfoot>
