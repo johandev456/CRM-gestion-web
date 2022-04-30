@@ -52,7 +52,7 @@
 
 
                 </div>
-                <table border="0" cellspacing="0" cellpadding="0">
+                <table border="1" cellspacing="2" cellpadding="2">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -66,38 +66,45 @@
                     <tbody>
                         {% for i in dics %}
                         <tr>
-                        <right>
-                            <td >{{ i.idpp }}</td>
-                            <td>{{ i.nombre }}</td>
-                            <td >{{ i.idp }}</td>
-                            <td >${{ i.precio }}</td>
-                            <td >{{ i.cant }}</td>
-                            <td >${{ i.total }}</td>
-                        </right>
+                            <td align="center">{{ i.idpp }}</td>
+                            <td align="center">{{ i.nombre }}</td>
+                            <td align="center">{{ i.idp }}</td>
+                            <td align="center" >${{ i.precio }}</td>
+                            <td align="center">{{ i.cant }}</td>
+                            <td align="center">${{ i.total }}</td>
                         </tr>
-
                         {% endfor %}
                     </tbody>
-                    <tfoot>
+
+                    <table border="0" cellpadding="2" cellspacing="2">
                         <tr>
-                            <td colspan="2"></td>
-                            <td colspan="2">SUBTOTAL</td>
-                            <td>${{ total|floatformat:2 }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="1" align="right" >SUBTOTAL</td>
+                            <td align="center">${{ total|floatformat:2 }}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"></td>
-                            <td colspan="2">ITBIS</td>
-                            <td>${{ totali|floatformat:2 }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="1" align="right">ITBIS</td>
+                            <td align="center">${{ totali|floatformat:2 }}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"></td>
-                            <td colspan="2">TOTAL</td>
-                            <td>${{ totalit|floatformat:2 }}</td>
+                            <td  colspan="1"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="1" align="right">TOTAL</td>
+                            <td align="center">${{ totalit|floatformat:2 }}</td>
                         </tr>
-                    </tfoot>
+                    </table>
                 </table>
 
-    <hr>
+
 
   <div id="footer_content">(c) - page <pdf:pagenumber>
     of <pdf:pagecount> </div>
