@@ -1,0 +1,24 @@
+#logo{
+		}
+
+		body{
+			background-color: #ebeff5;
+		}
+
+
+		#total-ordersa{
+			background-color: #9158d0;
+		}
+
+
+		#orders-delivereda{
+			background-color: #56949f;
+		}
+		#orders-refundeda{
+			background-color: #e36a6a;
+		}
+
+		#orders-pendinga{
+			background-color: #7CD1C0;
+		}
+
