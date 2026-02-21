@@ -3,21 +3,66 @@
 
 {% block content %}
 <br>
+<div class="container">
     <div class="row">
-    <div class="col-md-6">
-         <div class="card card-body">
-    <form  action="" method="POST">
-    {% csrf_token %}
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h4 class="card-title mb-0">Formulario de Devolución de Productos</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="id_producto" class="font-weight-bold">Selecciona los productos a devolver:</label>
+                            <div class="alert alert-info" role="alert">
+                                <p><strong>Nota:</strong> Solo se muestran los productos con estado "Enviado"</p>
+                            </div>
+                            
+                            <div style="border: 1px solid #ddd; padding: 15px; border-radius: 4px; background-color: #f9f9f9;">
+                                {{ form.producto }}
+                            </div>
+                        </div>
 
-    {{ form }}
-        <hr>
+                        <div class="form-group">
+                            <button type="submit" name="guardar" class="btn btn-success btn-lg">
+                                <i class="fas fa-check"></i> Procesar Devolución
+                            </button>
+                            <a href="{% url 'ordenes' %}" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-arrow-left"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
 
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <h5>Errores en el formulario:</h5>
+                            {{ form.non_field_errors }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
 
-
-    <input class="btn btn-success" type="submit" name="guardar" value="Guardar">
-
-    </form>
-         </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info">
+                    <h5 class="card-title mb-0">Información importante</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check-circle text-success"></i> <strong>Devoluciones:</strong> Se procesarán automáticamente</li>
+                        <li><i class="fas fa-file-alt text-primary"></i> <strong>Nota de Crédito:</strong> Se generará una nota de crédito</li>
+                        <li><i class="fas fa-box-open text-warning"></i> <strong>Inventario:</strong> Se actualizará automáticamente</li>
+                        <li><i class="fas fa-book text-secondary"></i> <strong>Diario:</strong> Se registrará en el diario contable</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
+</div>
 {% endblock %}

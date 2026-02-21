@@ -29,8 +29,7 @@
                     <th>Nota</th>
 					<th>fecha</th>
 					<th>Estado</th>
-					<th>Modificar</th>
-					<th>Eliminar</th>
+					<th>Acciones</th>
 				</tr>
                 {% for orden in ordenes %}
                     <tr>
@@ -38,9 +37,25 @@
                     <td>{{ orden.producto.categoria }}</td>
                         <td>{{ orden.nota }}</td>
                     <td>{{ orden.fecha }}</td>
-                    <td>{{ orden.estado }}</td>
-                    <td><a class="btn btn-sm btn-info" href="{% url 'mod_orden' orden.id %}">Modificar</a></td>
-                <td><a class="btn btn-sm btn-danger" href="{% url 'borrar_orden' orden.id %}">Eliminar</a></td>
+                    <td>
+                    	{% if orden.estado == 'Devuelto' %}
+                    		<span class="badge badge-danger">Devuelto</span>
+                    	{% elif orden.estado == 'Enviado' %}
+                    		<span class="badge badge-success">Enviado</span>
+                    	{% else %}
+                    		<span class="badge badge-warning">{{ orden.estado }}</span>
+                    	{% endif %}
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-info" href="{% url 'mod_orden' orden.id %}">Modificar</a>
+                        {% if orden.estado == 'Enviado' %}
+                            <a class="btn btn-sm btn-warning" href="{% url 'devolver_orden' orden.cliente.idc %}">Devolver</a>
+                        {% endif %}
+                        {% if orden.estado == 'Devuelto' %}
+                            <a class="btn btn-sm btn-success" href="{% url 'notacredito' orden.idf %}">Nota Crédito</a>
+                        {% endif %}
+                        <a class="btn btn-sm btn-danger" href="{% url 'borrar_orden' orden.id %}">Eliminar</a>
+                    </td>
                     </tr>
                 {% endfor %}
 			</table>

@@ -23,11 +23,11 @@
                                 <td>{{ i }}</td>
                                 <td><a href="{% url 'factura' i %}">Factura</a></td>
 
-
-                                    {% if i in notas %}
-                                 <td><a href="{% url 'notacredito' i %}">Devolucion</a></td>
+                                {% for a in  notas%}
+                                    {% if i == a %}
+                                 <td><a href="{% url 'notacredito' a %}">Devolucion</a></td>
                                     {% endif %}
-
+                                    {% endfor %}
                             </tr>
                         {% endfor %}
 

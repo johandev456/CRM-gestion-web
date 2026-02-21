@@ -2,18 +2,15 @@
 <head>
 <style>
     @page {
-        size: a5 landscape;
+        size: a4 portrait;
         @frame header_frame {           /* Static Frame */
-
             -pdf-frame-content: header_content;
             left: 50pt; width: 512pt; top: 50pt; height: 40pt;
         }
         @frame content_frame {          /* Content Frame */
-
             left: 50pt; width: 512pt; top: 90pt; height: 632pt;
         }
         @frame footer_frame {           /* Another static Frame */
-
             -pdf-frame-content: footer_content;
             left: 50pt; width: 512pt; top: 772pt; height: 20pt;
         }
@@ -30,21 +27,18 @@
                            LACOSTE INC.
 
                         </h2>
-
-
-    </div>
-            <main>
-                <div id="content">
-                    <div >
-
                         <td>Troyes, France</td>
                         <td>+44 1962 312803</td>
                         <td>lacosteinfo@lacoste.com</td>
+
+    </div>
+            <main>
+                <div >
+                    <div >
                         <td>FACTURA PARA:</td>
                         <h2 >{{ cliente.nombre }}</h2>
                         <td >{{ cliente.direccion }}</td>
                         <td ><a>{{ cliente.correo}}</a></td>
-
                     </div>
 
                         <h1 >FACTURA {{ idf }}</h1>
@@ -52,7 +46,7 @@
 
 
                 </div>
-                <table border="1" cellspacing="2" cellpadding="2">
+                <table border="0" cellspacing="0" cellpadding="0">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -66,45 +60,35 @@
                     <tbody>
                         {% for i in dics %}
                         <tr>
-                            <td align="center">{{ i.idpp }}</td>
-                            <td align="center">{{ i.nombre }}</td>
-                            <td align="center">{{ i.idp }}</td>
-                            <td align="center" >${{ i.precio }}</td>
-                            <td align="center">{{ i.cant }}</td>
-                            <td align="center">${{ i.total }}</td>
+                            <td >{{ i.idpp }}</td>
+                            <td>{{ i.nombre }}</td>
+                            <td >{{ i.idp }}</td>
+                            <td >${{ i.precio }}</td>
+                            <td >{{ i.cant }}</td>
+                            <td >${{ i.total }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
-
-                    <table border="0" cellpadding="2" cellspacing="2">
+                    <tfoot>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td colspan="1" align="right" >SUBTOTAL</td>
-                            <td align="center">${{ total|floatformat:2 }}</td>
+                            <td colspan="2"></td>
+                            <td colspan="2">SUBTOTAL</td>
+                            <td>${{ total|floatformat:2 }}</td>
                         </tr>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td colspan="1" align="right">ITBIS</td>
-                            <td align="center">${{ totali|floatformat:2 }}</td>
+                            <td colspan="2"></td>
+                            <td colspan="2">ITBIS</td>
+                            <td>${{ totali|floatformat:2 }}</td>
                         </tr>
                         <tr>
-                            <td  colspan="1"></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td colspan="1" align="right">TOTAL</td>
-                            <td align="center">${{ totalit|floatformat:2 }}</td>
+                            <td colspan="2"></td>
+                            <td colspan="2">TOTAL</td>
+                            <td>${{ totalit|floatformat:2 }}</td>
                         </tr>
-                    </table>
+                    </tfoot>
                 </table>
 
-
+    <hr>
 
   <div id="footer_content">(c) - page <pdf:pagenumber>
     of <pdf:pagecount> </div>

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import os
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,7 +43,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,20 +78,15 @@ WSGI_APPLICATION = 'Dom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER':'postgres',
-        'PASSWORD':'AlEx010101',
-        'HOST':'127.0.0.1',
-        'DATABASE_PORT':'5432',
-
-
-
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dominus_db',
+        'USER': 'postgres',
+        'PASSWORD': 'alex01',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -132,8 +126,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (BASE_DIR / 'Dominus/templates/static',)
-STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles')
-ALLOWED_HOSTS=['*']
+STATIC_ROOT= BASE_DIR/'Dominus/templates'
+ALLOWED_HOSTS=["*"]
 MEDIA_URL='/images/'
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'

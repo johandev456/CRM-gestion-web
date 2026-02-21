@@ -9,8 +9,8 @@
 
     <div class="toolbar hidden-print">
         <div class="text-right">
-            <form action="{% url 'PDFD' idf %}"><button id="printInvoice" class="btn btn-info"><i class="fa fa-print" ></i> Imprimir</button></form>
-            <form action="{% url 'PDF' idf %}"><button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> PDF</button></form>
+            <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> <a href="{% url 'PDFD' idf %}">Imprimir</a></button>
+            <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> <a href="{% url 'PDF' idf %}">PDF</a></button>
         </div>
         <hr>
     </div>
