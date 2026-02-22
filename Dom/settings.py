@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -77,14 +79,15 @@ WSGI_APPLICATION = 'Dom.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dominus_db',
-        'USER': 'postgres',
-        'PASSWORD': 'alex01',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(default=os.environ.get('postgresql://dominus_6yd0_user:3nLmi4dBZhRYUkVnGua5qoGrL0xc1zUI@dpg-d6d4ftcr85hc73bkrje0-a/dominus_6yd0'))
+    # # 'default': {
+    # #     'ENGINE': 'django.db.backends.postgresql',
+    # #     'NAME': 'dominus_db',
+    # #     'USER': 'postgres',
+    # #     'PASSWORD': 'alex01',
+    # #     'HOST': 'localhost',
+    # #     'PORT': '5432',
+    # }
 }
 
 ALLOWED_HOSTS = ['*'] 
