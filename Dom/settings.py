@@ -79,14 +79,14 @@ WSGI_APPLICATION = 'Dom.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('postgresql://dominus_6yd0_user:3nLmi4dBZhRYUkVnGua5qoGrL0xc1zUI@dpg-d6d4ftcr85hc73bkrje0-a/dominus_6yd0'))
-    # # 'default': {
-    # #     'ENGINE': 'django.db.backends.postgresql',
-    # #     'NAME': 'dominus_db',
-    # #     'USER': 'postgres',
-    # #     'PASSWORD': 'alex01',
-    # #     'HOST': 'localhost',
-    # #     'PORT': '5432',
+   'default': dj_database_url.config(default=os.environ.get('postgresql://dominus_6yd0_user:3nLmi4dBZhRYUkVnGua5qoGrL0xc1zUI@dpg-d6d4ftcr85hc73bkrje0-a/dominus_6yd0'))
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'dominus_db',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'alex01',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
     # }
 }
 
@@ -128,8 +128,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (BASE_DIR / 'Dominus/templates/static',)
-STATIC_ROOT= BASE_DIR/'Dominus/templates'
+STATICFILES_DIRS = [BASE_DIR / 'Dominus/templates/static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 ALLOWED_HOSTS=["*"]
 MEDIA_URL='/images/'
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'

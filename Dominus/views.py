@@ -180,7 +180,7 @@ def modCliente(request, pk):
     cliente= Cliente.objects.get(idc=pk)
     form= clienteform(instance=cliente)
     if request.method =='POST':
-        form = ordenar(request.POST, instance=clienteform)
+        form = clienteform(request.POST, instance=cliente)
         if form.is_valid():
             form.save()
             return redirect('/')
@@ -209,10 +209,10 @@ def crearProd(request):
     return render(request, 'cuentas/form_producto.html', contexto)
 def modProd(request, pk):
 
-    producto= Cliente.objects.get(idc=pk)
+    producto= Inventario1.objects.get(id=pk)
     form= productoform(instance=producto)
     if request.method =='POST':
-        form = productoform(request.POST, instance=productoform)
+        form = productoform(request.POST, instance=producto)
         if form.is_valid():
             form.save()
             return redirect('/')
@@ -244,7 +244,7 @@ def modProv(request, pk):
     proveedor= Proveedor.objects.get(idp=pk)
     form= proveedorform(instance=proveedor)
     if request.method =='POST':
-        form = proveedorform(request.POST, instance=proveedorform)
+        form = proveedorform(request.POST, instance=proveedor)
         if form.is_valid():
             form.save()
             return redirect('/')
@@ -276,7 +276,7 @@ def modEmpl(request, pk):
     empleado= Empleado.objects.get(numemp=pk)
     form= empleadoform(instance=empleado)
     if request.method =='POST':
-        form = empleadoform(request.POST, instance=empleadoform)
+        form = empleadoform(request.POST, instance=empleado)
         if form.is_valid():
             form.save()
             return redirect('/')
@@ -612,3 +612,35 @@ def borrarOrden(request, pk):
         return redirect('/')
     context = {'item': orden}
     return render(request, 'cuentas/delete.html', context)
+
+
+def crear_tag(request):
+    from django.http import JsonResponse
+    
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre', '').strip()
+        
+        if not nombre:
+            return JsonResponse({'success': False, 'error': 'El nombre del tag no puede estar vacío'})
+        
+        # Verificar si el tag ya existe
+        tag_existente = Tag.objects.filter(nombre=nombre).first()
+        if tag_existente:
+            return JsonResponse({
+                'success': True, 
+                'tag_id': tag_existente.id, 
+                'tag_name': tag_existente.nombre
+            })
+        
+        # Crear nuevo tag
+        try:
+            nuevo_tag = Tag.objects.create(nombre=nombre)
+            return JsonResponse({
+                'success': True,
+                'tag_id': nuevo_tag.id,
+                'tag_name': nuevo_tag.nombre
+            })
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    
+    return JsonResponse({'success': False, 'error': 'Método no permitido'})

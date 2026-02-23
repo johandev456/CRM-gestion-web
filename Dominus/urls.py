@@ -37,6 +37,7 @@ path('ordenes/',views.ordenes, name='ordenes'),
     path('login/',views.login),
 path('cerrar/',views.cerrar),
     path('facturacion/<str:fct>/',views.factura, name='factura'),
-    path('notacredito/<str:fct>/', views.notacredito, name='notacredito')
+    path('notacredito/<str:fct>/', views.notacredito, name='notacredito'),
+    path('crear-tag/', views.crear_tag, name='crear_tag')
 
 ]

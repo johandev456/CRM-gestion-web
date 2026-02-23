@@ -15,6 +15,11 @@ class clienteform(ModelForm):
         model = Cliente
         fields ='__all__'
         #exclude=['cliente']
+class tagform(ModelForm):
+
+    class Meta:
+        model = Tag
+        fields = '__all__'
 class productoform(ModelForm):
 
     class Meta:

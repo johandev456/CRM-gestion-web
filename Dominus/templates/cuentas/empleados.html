@@ -2,59 +2,110 @@
 
 {% block content %}
 
-<br>
-<div class="row">
-	<div class="col">
-		<div class="card card-body">
-			<form method="GET">
+<div class="container-fluid">
+	<!-- HEADER -->
+	<div class="mb-4">
+		<h2 class="page-title">
+			<i class="fas fa-briefcase"></i> Gestión de Empleados
+		</h2>
+	</div>
 
-
-            {{ efiltro.form }}
-		    <input class="btn btn-primary" value="Buscar" type="submit">
-
-		  </form>
+	<!-- BÚSQUEDA Y FILTRO -->
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 style="margin: 0;">Búsqueda y Filtro</h6>
+				</div>
+				<div class="card-body">
+					<form method="GET" class="form-inline" style="gap: 10px; flex-wrap: wrap;">
+						{{ efiltro.form }}
+						<button class="btn btn-primary" type="submit">
+							<i class="fas fa-search"></i> Buscar
+						</button>
+						<a href="{% url 'crear_empl' %}" class="btn btn-success">
+							<i class="fas fa-plus"></i> Nuevo Empleado
+						</a>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 
-</div>
-<br>
-		<div class="row">
-			<div class="col-md">
-				<div class="card card-body">
-					<h5>Empleados</h5>
+	<!-- TABLA DE EMPLEADOS -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 style="margin: 0;">
+						<i class="fas fa-list"></i> Listado de Empleados
+					</h6>
 				</div>
-				<div class="card card-body">
-                 <a class="btn btn-primary  btn-sm btn-block" href="{% url 'crear_empl' %}">Añadir empleados</a>
-					<table class="table">
-						<tr><th>Numero</th>
-							<th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Dept</th>
-                            <th>Cargo</th>
-                            <th>Correo</th>
-							<th>Salario</th>
-                       
-						</tr>
-
-                        {% for i in empleados %}
-                            <tr>
-                                <td>{{ i.numemp }}</td>
-                                <td>{{ i.nombre }}</td>
-                                <td>{{ i.apellido }}</td>
-                                <td>{{ i.deptno }}</td>
-                                <td>{{ i.cargo }}</td>
-                                <td>{{ i.correo }}</td>
-                                <td>{{ i.salario }}</td>
-                                <td><a class="btn btn-sm btn-info" href="{% url 'mod_empl' i.numemp %}">Modificar</a></td>
-                                <td><a class="btn btn-sm btn-danger" href="{% url 'borrar_empl' i.numemp %}">Eliminar</a></td>
- 
-                            </tr>
-                        {% endfor %}
-
-					</table>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Número</th>
+									<th>Nombre</th>
+									<th>Apellido</th>
+									<th>Departamento</th>
+									<th>Cargo</th>
+									<th>Correo</th>
+									<th>Salario</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for empleado in empleados %}
+									<tr>
+										<td>
+											<span class="badge badge-info">{{ empleado.numemp }}</span>
+										</td>
+										<td>
+											<strong>{{ empleado.nombre }}</strong>
+										</td>
+										<td>
+											{{ empleado.apellido }}
+										</td>
+										<td>
+											<span class="badge badge-secondary">{{ empleado.deptno }}</span>
+										</td>
+										<td>
+											{{ empleado.cargo }}
+										</td>
+										<td>
+											<a href="mailto:{{ empleado.correo }}">{{ empleado.correo }}</a>
+										</td>
+										<td>
+											<strong>${{ empleado.salario }}</strong>
+										</td>
+										<td>
+											<a class="btn btn-sm btn-warning" href="{% url 'mod_empl' empleado.numemp %}" title="Editar empleado">
+												<i class="fas fa-edit"></i> Editar
+											</a>
+											<a class="btn btn-sm btn-danger" href="{% url 'borrar_empl' empleado.numemp %}" title="Eliminar empleado" onclick="return confirm('¿Está seguro de que desea eliminar este empleado?')">
+												<i class="fas fa-trash"></i> Eliminar
+											</a>
+										</td>
+									</tr>
+								{% empty %}
+									<tr>
+										<td colspan="8" class="text-center py-5">
+											<div>
+												<i class="fas fa-inbox" style="font-size: 2rem; color: var(--text-light); margin-bottom: 10px;"></i>
+												<p class="text-muted">No hay empleados registrados</p>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
-
 		</div>
+	</div>
+</div>
 
 {% endblock %}

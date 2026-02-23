@@ -1,56 +1,85 @@
-<br>
 {% load static %}
- <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
-<div class="row">
-	<div class="col">
-		<div class="col-md">
-			<div class="card text-center text-white bg-info  mb-3" id="total-orders">
-			  	<div class="card-header">
-			  		<h5 class="card-title">Ordenes Totales</h5>
-			  	</div>
-			  	<div class="card-body">
-			    	<h3 class="card-title">{{ totalordenes }}</h3>
-			  	</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3 col-sm-6 mb-4">
+			<div class="card stat-card">
+				<div class="stat-header">
+					<h6>Órdenes Totales</h6>
+					<i class="fas fa-shopping-cart" style="font-size: 2rem; opacity: 0.9;"></i>
+				</div>
+				<h3>{{ totalordenes }}</h3>
+				<p><i class="fas fa-arrow-up"></i> +12%</p>
 			</div>
 		</div>
-	</div>
 
-	<div class="col">
-		<div class="col-md">
-			<div class="card text-center text-white bg-success mb-3" ">
-			  	<div class="card-header">
-			  		<h5 class="card-title">Ordenes Enviadas</h5>
-			  	</div>
-			  	<div class="card-body">
-			    	<h3 class="card-title">{{ enviadas }}</h3>
-			  	</div>
+		<div class="col-md-3 col-sm-6 mb-4">
+			<div class="card stat-card success">
+				<div class="stat-header">
+					<h6>Órdenes Enviadas</h6>
+					<i class="fas fa-truck" style="font-size: 2rem; opacity: 0.9;"></i>
+				</div>
+				<h3>{{ enviadas }}</h3>
+				<p><i class="fas fa-arrow-up"></i> +5%</p>
 			</div>
 		</div>
-	</div>
 
-    <div class="col">
-		<div class="col-md">
-			<div class="card text-center text-white bg-danger  mb-3">
-			  	<div class="card-header">
-			  		<h5 class="card-title">Ordenes Regresadas</h5>
-			  	</div>
-			  	<div class="card-body">
-			    	<h3 class="card-title">{{ devueltas }}</h3>
-			  	</div>
+		<div class="col-md-3 col-sm-6 mb-4">
+			<div class="card stat-card danger">
+				<div class="stat-header">
+					<h6>Órdenes Devueltas</h6>
+					<i class="fas fa-undo" style="font-size: 2rem; opacity: 0.9;"></i>
+				</div>
+				<h3>{{ devueltas }}</h3>
+				<p><i class="fas fa-arrow-down"></i> -2%</p>
 			</div>
 		</div>
-	</div>
 
-	<div class="col">
-		<div class="col-md">
-			<div class="card text-center text-white bg-warning mb-3" >
-			  	<div class="card-header">
-			  		<h5 class="card-title">Ordenes Pendientes</h5>
-			  	</div>
-			  	<div class="card-body">
-			    	<h3 class="card-title">{{ pendientes }}</h3>
-			  	</div>
+		<div class="col-md-3 col-sm-6 mb-4">
+			<div class="card stat-card warning">
+				<div class="stat-header">
+					<h6>Órdenes Pendientes</h6>
+					<i class="fas fa-clock" style="font-size: 2rem; opacity: 0.9;"></i>
+				</div>
+				<h3>{{ pendientes }}</h3>
+				<p><span class="badge">En espera</span></p>
 			</div>
 		</div>
 	</div>
 </div>
+
+<style>
+	.stat-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.stat-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 1rem;
+	}
+
+	.stat-card h6 {
+		margin: 0;
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+	.stat-card h3 {
+		margin: 0.5rem 0;
+	}
+
+	.stat-card p {
+		margin: 0;
+		font-size: 0.9rem;
+	}
+
+	.stat-card .badge {
+		background-color: rgba(255, 255, 255, 0.3) !important;
+		color: white !important;
+		padding: 0.3rem 0.6rem;
+	}
+</style>

@@ -2,89 +2,180 @@
 
 {% block content %}
 
-<br>
-
-<div class="row">
-	<div class="col-md">
-		<div class="card card-body">
-			<h5>Cliente:</h5>
-			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'modificar_cliente' cliente.idc %}">Modificar Cliente</a>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'crear_orden' cliente.idc %}">Crear orden</a>
-            <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'devolver_orden' cliente.idc %}">Devolver orden</a>
-		</div>
-	</div>
-<br>
-
-
-	<div class="col-md">
-		<div class="card card-body">
-			<h5>Informacion contacto</h5>
-			<hr>
-			<p>Correo: {{ cliente.correo }} </p>
-			<p>Telefono: {{ cliente.telefono }} </p>
-		</div>
-	</div>
-    <div class="col-md">
-		<div class="card card-body">
-			<h5>Informacion de transacciones</h5>
-			<hr>
-			<p><a href="{% url 'facturas_clientes' cliente.idc %}">Ver aqui</a></p>
-		</div>
+<div class="container-fluid">
+	<!-- HEADER -->
+	<div class="mb-4">
+		<h2 class="page-title">
+			<i class="fas fa-user-circle"></i> Perfil del Cliente
+		</h2>
 	</div>
 
-	<div class="col-md">
-		<div class="card card-body">
-			<h5>Ordenes totales</h5>
-			<hr>
-			<h1 style="text-align: center;padding: 10px">{{ ordenescuenta }}</h1>
+	<!-- INFORMACIÓN DEL CLIENTE Y ACCIONES RÁPIDAS -->
+	<div class="row mb-4">
+		<!-- ACCIONES RÁPIDAS -->
+		<div class="col-md-3 mb-3">
+			<div class="card">
+				<div class="card-header">
+					<h6 style="margin: 0;">
+						<i class="fas fa-bolt"></i> Acciones Rápidas
+					</h6>
+				</div>
+				<div class="card-body" style="display: flex; flex-direction: column; gap: 10px;">
+					<a class="btn btn-primary" href="{% url 'modificar_cliente' cliente.idc %}">
+						<i class="fas fa-edit"></i> Modificar Cliente
+					</a>
+					<a class="btn btn-success" href="{% url 'crear_orden' cliente.idc %}">
+						<i class="fas fa-plus"></i> Crear Orden
+					</a>
+					<a class="btn btn-warning" href="{% url 'devolver_orden' cliente.idc %}">
+						<i class="fas fa-undo"></i> Devolver Orden
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- INFORMACIÓN DE CONTACTO -->
+		<div class="col-md-3 mb-3">
+			<div class="card">
+				<div class="card-header">
+					<h6 style="margin: 0;">
+						<i class="fas fa-phone"></i> Información de Contacto
+					</h6>
+				</div>
+				<div class="card-body">
+					<div class="mb-3">
+						<small class="text-muted">Correo Electrónico</small>
+						<p><a href="mailto:{{ cliente.correo }}">{{ cliente.correo }}</a></p>
+					</div>
+					<div>
+						<small class="text-muted">Teléfono</small>
+						<p><a href="tel:{{ cliente.telefono }}">{{ cliente.telefono }}</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- TRANSACCIONES -->
+		<div class="col-md-3 mb-3">
+			<div class="card">
+				<div class="card-header">
+					<h6 style="margin: 0;">
+						<i class="fas fa-history"></i> Transacciones
+					</h6>
+				</div>
+				<div class="card-body">
+					<p>Ver historial detallado de pagos y créditos del cliente.</p>
+					<a href="{% url 'facturas_clientes' cliente.idc %}" class="btn btn-primary btn-block">
+						<i class="fas fa-file-invoice"></i> Ver Aquí
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- ÓRDENES TOTALES -->
+		<div class="col-md-3 mb-3">
+			<div class="card stat-card" style="background: linear-gradient(135deg, var(--primary) 0%, #0052a3 100%); display: flex; flex-direction: column; justify-content: center; align-items: center;">
+				<h6 style="margin: 0; opacity: 0.95;">Órdenes Totales</h6>
+				<h2 style="margin: 1rem 0; font-weight: 700;">{{ ordenescuenta }}</h2>
+			</div>
 		</div>
 	</div>
-</div>
 
-
-<br>
-<div class="row">
-	<div class="col">
-		<div class="card card-body">
-			<form method="GET">
-
-
-            {{ miFiltro.form }}
-		    <input class="btn btn-primary" value="Buscar" type="submit">
-
-		  </form>
+	<!-- BÚSQUEDA DE TRANSACCIONES -->
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 style="margin: 0;">
+						<i class="fas fa-filter"></i> Filtro de Transacciones
+					</h6>
+				</div>
+				<div class="card-body">
+					<form method="GET" class="form-inline" style="gap: 10px; flex-wrap: wrap;">
+						{{ miFiltro.form }}
+						<button class="btn btn-primary" type="submit">
+							<i class="fas fa-search"></i> Buscar
+						</button>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 
-</div>
-<br>
-
-<div class="row">
-	<div class="col-md">
-		<div class="card card-body">
-			<table class="table table-sm">
-				<tr>
-					<th>Producto</th>
-					<th>Categoria</th>
-                    <th>Nota</th>
-					<th>fecha</th>
-					<th>Estado</th>
-					<th>Modificar</th>
-					<th>Eliminar</th>
-				</tr>
-                {% for orden in ordenes %}
-                    <tr>
-                    <td>{{ orden.producto }}</td>
-                    <td>{{ orden.producto.categoria }}</td>
-                        <td>{{ orden.nota }}</td>
-                    <td>{{ orden.fecha }}</td>
-                    <td>{{ orden.estado }}</td>
-                    <td><a class="btn btn-sm btn-info" href="{% url 'mod_orden' orden.id %}">Modificar</a></td>
-                <td><a class="btn btn-sm btn-danger" href="{% url 'borrar_orden' orden.id %}">Eliminar</a></td>
-                    </tr>
-                {% endfor %}
-			</table>
+	<!-- ÚLTIMAS TRANSACCIONES -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 style="margin: 0;">
+						<i class="fas fa-list"></i> Últimas Transacciones
+					</h6>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Producto</th>
+									<th>Categoría</th>
+									<th>Nota</th>
+									<th>Fecha</th>
+									<th>Estado</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for orden in ordenes %}
+									<tr>
+										<td>
+											<strong>{{ orden.producto }}</strong>
+										</td>
+										<td>
+											<span class="badge badge-secondary">{{ orden.producto.categoria }}</span>
+										</td>
+										<td>
+											<small>{{ orden.nota|truncatewords:5 }}</small>
+										</td>
+										<td>{{ orden.fecha|date:"d/m/Y" }}</td>
+										<td>
+											{% if orden.estado == 'Devuelto' %}
+												<span class="badge badge-danger">
+													<i class="fas fa-undo"></i> Devuelto
+												</span>
+											{% elif orden.estado == 'Enviado' %}
+												<span class="badge badge-success">
+													<i class="fas fa-truck"></i> Enviado
+												</span>
+											{% else %}
+												<span class="badge badge-warning">
+													<i class="fas fa-clock"></i> {{ orden.estado }}
+												</span>
+											{% endif %}
+										</td>
+										<td>
+											<a class="btn btn-sm btn-info" href="{% url 'mod_orden' orden.id %}" title="Editar">
+												<i class="fas fa-edit"></i>
+											</a>
+											<a class="btn btn-sm btn-danger" href="{% url 'borrar_orden' orden.id %}" title="Eliminar" onclick="return confirm('¿Está seguro?')">
+												<i class="fas fa-trash"></i>
+											</a>
+										</td>
+									</tr>
+								{% empty %}
+									<tr>
+										<td colspan="6" class="text-center py-5">
+											<div>
+												<i class="fas fa-inbox" style="font-size: 2rem; color: var(--text-light); margin-bottom: 10px;"></i>
+												<p class="text-muted">No hay transacciones registradas</p>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

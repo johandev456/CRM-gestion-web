@@ -6,17 +6,127 @@
     <div class="row">
     <div class="col-md-6">
          <div class="card card-body">
-    <form  action="" method="POST">
+    <form  action="" method="POST" id="productoForm">
     {% csrf_token %}
 
-    {{ form }}
-        <hr>
+    <div class="form-group">
+        {{ form.codigo.label_tag }}
+        {{ form.codigo }}
+    </div>
+    
+    <div class="form-group">
+        {{ form.descripcion.label_tag }}
+        {{ form.descripcion }}
+    </div>
+    
+    <div class="form-group">
+        {{ form.categoria.label_tag }}
+        {{ form.categoria }}
+    </div>
+    
+    <div class="form-group">
+        {{ form.precio.label_tag }}
+        {{ form.precio }}
+    </div>
+    
+    <div class="form-group">
+        {{ form.stocki.label_tag }}
+        {{ form.stocki }}
+    </div>
+    
+    <div class="form-group">
+        {{ form.entradas.label_tag }}
+        {{ form.entradas }}
+    </div>
+    
+    <div class="form-group">
+        {{ form.salidas.label_tag }}
+        {{ form.salidas }}
+    </div>
+    
+    <!-- Tags Section -->
+    <div class="form-group">
+        <label for="tags">Tags:</label>
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <input type="text" id="nuevoTag" placeholder="Nuevo tag" class="form-control" style="flex: 1;">
+            <button type="button" class="btn btn-primary btn-sm" onclick="agregarTag()">+ Tag</button>
+        </div>
+        {{ form.tags }}
+        <div id="tagsCreados" style="margin-top: 10px;"></div>
+    </div>
 
+    <div class="form-group">
+        {{ form.idp.label_tag }}
+        {{ form.idp }}
+    </div>
+    
+    <hr>
 
-    <input class="btn btn-success" type="submit" name="Añadir" value="Guardar">
+    <input class="btn btn-success" type="submit" name="Guardar" value="Guardar">
 
     </form>
          </div>
     </div>
     </div>
+
+<script>
+function agregarTag() {
+    const nuevoTag = document.getElementById('nuevoTag').value.trim();
+    
+    if (!nuevoTag) {
+        alert('Por favor ingresa un nombre para el tag');
+        return;
+    }
+    
+    // Crear FormData para enviar al servidor
+    const formData = new FormData();
+    formData.append('nombre', nuevoTag);
+    formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+    
+    // Enviar AJAX request
+    fetch('{% url "crear_tag" %}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Agregar el nuevo tag a la lista desplegable
+            const tagsSelect = document.querySelector('#id_tags');
+            const newOption = document.createElement('option');
+            newOption.value = data.tag_id;
+            newOption.text = data.tag_name;
+            newOption.selected = true;
+            tagsSelect.appendChild(newOption);
+            
+            // Limpiar input
+            document.getElementById('nuevoTag').value = '';
+            
+            // Mostrar confirmación
+            const tagsCreados = document.getElementById('tagsCreados');
+            tagsCreados.innerHTML += `<span class="badge badge-info" style="margin-right: 5px;">${data.tag_name}</span>`;
+        } else {
+            alert('Error al crear el tag: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al crear el tag');
+    });
+}
+
+// Permitir crear tag con Enter
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('nuevoTag');
+    if (input) {
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                agregarTag();
+            }
+        });
+    }
+});
+</script>
+
 {% endblock %}

@@ -3,59 +3,110 @@
 {% block content %}
 
 {% include 'cuentas/estado.html' %}
-    <br>
 
-<div class="row">
-	<div class="col-md-5">
-		<h5>CLIENTES:</h5>
-		<hr>
-		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'crear_cliente' %}">Añadir cliente</a>
-			<table class="table table-sm">
-				<tr>
-                    <th></th>
-					<th>Cliente</th>
-					<th>Telefono</th>
-				</tr>
-                {% for cliente in clientes %}
-                    <tr>
-                <td><a class="btn btn-sm btn-info" href="{% url 'cliente' cliente.idc %}">Vista</a></td>
-                <td>{{ cliente.nombre }}</td>
-                <td>{{ cliente.telefono }}</td>
-                </tr>
-                {% endfor %}
-			</table>
+<div class="container-fluid">
+	<div class="row mt-4">
+		<!-- CLIENTES RECIENTES -->
+		<div class="col-md-6 mb-4">
+			<div class="card">
+				<div class="card-header">
+					<div style="display: flex; justify-content: space-between; align-items: center;">
+						<h5><i class="fas fa-users" style="color: var(--primary); margin-right: 10px;"></i>Clientes Recientes</h5>
+						<a class="btn btn-primary btn-sm" href="{% url 'crear_cliente' %}">+ Añadir</a>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-hover table-sm">
+							<thead>
+								<tr>
+									<th>Cliente</th>
+									<th>Teléfono</th>
+									<th>Acción</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for cliente in clientes %}
+									<tr>
+										<td>
+											<div>
+												<strong>{{ cliente.nombre }}</strong><br>
+												<small class="text-muted">{{ cliente.apellido }}</small>
+											</div>
+										</td>
+										<td>{{ cliente.telefono }}</td>
+										<td>
+											<a class="btn btn-sm btn-info" href="{% url 'cliente' cliente.idc %}">
+												<i class="fas fa-eye"></i> Ver
+											</a>
+										</td>
+									</tr>
+								{% empty %}
+									<tr>
+										<td colspan="3" class="text-center text-muted py-4">No hay clientes registrados</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- ÚLTIMAS 5 ÓRDENES -->
+		<div class="col-md-6 mb-4">
+			<div class="card">
+				<div class="card-header">
+					<h5><i class="fas fa-clipboard-list" style="color: var(--primary); margin-right: 10px;"></i>Últimas Órdenes</h5>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-hover table-sm">
+							<thead>
+								<tr>
+									<th>Producto</th>
+									<th>Fecha</th>
+									<th>Estado</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for orden in ordenes %}
+									<tr>
+										<td>
+											<strong>{{ orden.producto }}</strong>
+										</td>
+										<td>{{ orden.fecha|date:"d/m/Y" }}</td>
+										<td>
+											{% if orden.estado == 'Devuelto' %}
+												<span class="badge badge-danger">Devuelto</span>
+											{% elif orden.estado == 'Enviado' %}
+												<span class="badge badge-success">Enviado</span>
+											{% else %}
+												<span class="badge badge-warning">{{ orden.estado }}</span>
+											{% endif %}
+										</td>
+										<td>
+											<a class="btn btn-sm btn-info" href="{% url 'mod_orden' orden.id %}">
+												<i class="fas fa-edit"></i>
+											</a>
+											<a class="btn btn-sm btn-danger" href="{% url 'borrar_orden' orden.id %}">
+												<i class="fas fa-trash"></i>
+											</a>
+										</td>
+									</tr>
+								{% empty %}
+									<tr>
+										<td colspan="4" class="text-center text-muted py-4">No hay órdenes registradas</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-
-	<div class="col-md-7">
-		<h5>ULTIMAS 5 ORDENES</h5>
-		<hr>
-		<div class="card card-body">
-
-			<table class="table table-sm">
-				<tr>
-					<th>Producto</th>
-					<th>Fecha</th>
-					<th>Estado</th>
-					<th>Modificar</th>
-					<th>Eliminar</th>
-				</tr>
-                {% for orden in ordenes %}
-                    <tr>
-
-                <td>{{ orden.producto }}</td>
-                <td>{{ orden.fecha }}</td>
-                <td>{{ orden.estado }}</td>
-
-                <td><a class="btn btn-sm btn-info" href="{% url 'mod_orden' orden.id %}">Modificar</a></td>
-                <td><a class="btn btn-sm btn-danger" href="{% url 'borrar_orden' orden.id %}">Eliminar</a></td>
-                </tr>
-                {% endfor %}
-			</table>
-		</div>
-	</div>
-
 </div>
 
 {% endblock %}

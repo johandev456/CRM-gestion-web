@@ -2,67 +2,115 @@
 
 {% block content %}
 
-<br>
-<div class="row">
-	<div class="col">
-		<div class="card card-body">
-			<form method="GET">
+<div class="container-fluid">
+	<!-- HEADER -->
+	<div class="mb-4">
+		<h2 class="page-title">
+			<i class="fas fa-box"></i> Gestión de Productos
+		</h2>
+	</div>
 
-
-            {{ pfiltro.form }}
-		    <input class="btn btn-primary" value="Buscar" type="submit">
-
-		  </form>
+	<!-- BÚSQUEDA Y FILTRO -->
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 style="margin: 0;">Búsqueda y Filtro</h6>
+				</div>
+				<div class="card-body">
+					<form method="GET" class="form-inline" style="gap: 10px; flex-wrap: wrap;">
+						{{ pfiltro.form }}
+						<button class="btn btn-primary" type="submit">
+							<i class="fas fa-search"></i> Buscar
+						</button>
+						<a href="{% url 'crear_prod' %}" class="btn btn-success">
+							<i class="fas fa-plus"></i> Nuevo Producto
+						</a>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 
-</div>
-<br>
-
-		<div class="row">
-			<div class="col-md">
-				<div class="card card-body">
-					<h5>Productos</h5>
+	<!-- TABLA DE PRODUCTOS -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 style="margin: 0;">
+						<i class="fas fa-list"></i> Listado de Productos
+					</h6>
 				</div>
-            <div class="card card-body">
-                    <a class="btn btn-primary  btn-sm btn-block" href="{% url 'crear_prod' %}">Añadir producto</a>
-					<table class="table">
-						<tr><th>ID</th>
-							<th>Codigo</th>
-                            <th>Descripcion</th>
-							<th>Categoria</th>
-							<th>Precio</th>
-                            <th>Precio Itbis</th>
-                            <th>Stock Inicial</th>
-                            <th>Entradas</th>
-                            <th>Salidas</th>
-                            <th>Stock Final</th>
-						</tr>
-
-
-                        {% for i in productos %}
-                            <tr>
-                                <td>{{ i.id }}</td>
-                                <td>{{ i.codigo }}</td>
-                                <td>{{ i.descripcion }}</td>
-                                <td>{{ i.categoria }}</td>
-                                <td>{{ i.precio }}</td>
-                                <td>{{ i.precioitbis }}</td>
-                                <td>{{ i.stocki }}</td>
-                                <td>{{ i.entradas }}</td>
-                                <td>{{ i.salidas }}</td>
-                                <td>{{ i.stockf }}</td>
-                            <td><a class="btn btn-sm btn-info" href="{% url 'mod_prod' i.id %}">Modificar</a></td>
-                                <td><a class="btn btn-sm btn-danger" href="{% url 'borrar_prod' i.id %}">Eliminar</a></td>
-
-                            </tr>
-                        {% endfor %}
-
-					</table>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Código</th>
+									<th>Descripción</th>
+									<th>Categoría</th>
+									<th>Precio</th>
+									<th>Precio ITBIS</th>
+									<th>Stock</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for producto in productos %}
+									<tr>
+										<td>
+											<span class="badge badge-info">{{ producto.id }}</span>
+										</td>
+										<td>
+											<strong>{{ producto.codigo }}</strong>
+										</td>
+										<td>{{ producto.descripcion }}</td>
+										<td>
+											<span class="badge badge-secondary">{{ producto.categoria }}</span>
+										</td>
+										<td>
+											<strong>${{ producto.precio }}</strong>
+										</td>
+										<td>
+											<strong>${{ producto.precioitbis }}</strong>
+										</td>
+										<td>
+											{% if producto.stockf > 50 %}
+												<span class="badge badge-success">{{ producto.stockf }}</span>
+											{% elif producto.stockf > 20 %}
+												<span class="badge badge-warning">{{ producto.stockf }}</span>
+											{% else %}
+												<span class="badge badge-danger">{{ producto.stockf }}</span>
+											{% endif %}
+										</td>
+										<td>
+											<a class="btn btn-sm btn-warning" href="{% url 'mod_prod' producto.id %}" title="Editar producto">
+												<i class="fas fa-edit"></i> Editar
+											</a>
+											<a class="btn btn-sm btn-danger" href="{% url 'borrar_prod' producto.id %}" title="Eliminar producto" onclick="return confirm('¿Está seguro de que desea eliminar este producto?')">
+												<i class="fas fa-trash"></i> Eliminar
+											</a>
+										</td>
+									</tr>
+								{% empty %}
+									<tr>
+										<td colspan="8" class="text-center py-5">
+											<div>
+												<i class="fas fa-inbox" style="font-size: 2rem; color: var(--text-light); margin-bottom: 10px;"></i>
+												<p class="text-muted">No hay productos registrados</p>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
-
 		</div>
+	</div>
+</div>
 
 {% endblock %}
 
